@@ -21,11 +21,11 @@ List<Guru> parseGurus(String responseBody) {
 }
 
 class Guru {
-  final String nim;
-  final String nama;
-  final String kelas;
-  final String kdmatkul;
-  final String email;
+  final String nig;
+  final String nama_guru;
+  final String jenjang_akademik;
+  final String pendidikan_terakhir;
+  final String home_base;
   Guru({this.nig, this.nama_guru, this.jenjang_akademik, this.pendidikan_terakhir, this.home_base});
 
   factory Guru.fromJson(Map<String, dynamic> json) {
