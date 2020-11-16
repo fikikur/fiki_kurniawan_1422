@@ -45,7 +45,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'UJIAN ADE Fiki Kurniawan';
+    final appTitle = 'UJIAN MID Fiki Kurniawan';
 
     return MaterialApp(
       title: appTitle,
