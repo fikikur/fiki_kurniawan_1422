@@ -5,31 +5,32 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<List<Guru>> fetchGurus(http.Client client) async {
+Future<List<namadosen>> fetchMhss(http.Client client) async {
   final response =
       await client.get('https://testfluterku.000webhostapp.com/readDatajson.php');
 
-  // Use the compute function to run parseGurus in a separate isolate.
-  return compute(parseGurus, response.body);
+  // Use the compute function to run parseMhss in a separate isolate.
+  return compute(parseMhss, response.body);
 }
 
-// A function that converts a response body into a List<Guru>.
-List<Guru> parseGurus(String responseBody) {
+// A function that converts a response body into a List<namadosen>.
+List<namadosen> parseMhss(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
-  return parsed.map<Guru>((json) => Guru.fromJson(json)).toList();
+  return parsed.map<namadosen>((json) => namadosen.fromJson(json)).toList();
 }
 
-class Guru {
+class namadosen {
   final String nig;
   final String nama_guru;
   final String jenjang_akademik;
   final String pendidikan_terakhir;
   final String home_base;
-  Guru({this.nig, this.nama_guru, this.jenjang_akademik, this.pendidikan_terakhir, this.home_base});
 
-  factory Guru.fromJson(Map<String, dynamic> json) {
-    return Guru(
+  namadosen({this.nig, this.nama_guru, this.jenjang_akademik, this.pendidikan_terakhir, this.home_base});
+
+  factory namadosen.fromJson(Map<String, dynamic> json) {
+    return namadosen(
       nig: json['nig'] as String,
       nama_guru: json['nama_guru'] as String,
       jenjang_akademik: json['jenjang_akademik'] as String,
@@ -44,7 +45,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'Ujian Mid Fiki';
+    final appTitle = 'UJIAN ADE FIKI KURNIAWAN';
 
     return MaterialApp(
       title: appTitle,
@@ -64,13 +65,13 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: FutureBuilder<List<Guru>>(
-        future: fetchGurus(http.Client()),
+      body: FutureBuilder<List<namadosen>>(
+        future: fetchMhss(http.Client()),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
 
           return snapshot.hasData
-              ? GurusList(GuruData: snapshot.data)
+              ? MhssList(MhsData: snapshot.data)
               : Center(child: CircularProgressIndicator());
         },
       ),
@@ -78,10 +79,10 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class GurusList extends StatelessWidget {
-  final List<Guru> GuruData;
+class MhssList extends StatelessWidget {
+  final List<namadosen> MhsData;
 
-  GurusList({Key key, this.GuruData}) : super(key: key);
+  MhssList({Key key, this.MhsData}) : super(key: key);
 
 
 
@@ -116,8 +117,8 @@ return Container(
            //leading: Image.network(
              //   "https://elearning.binadarma.ac.id/pluginfile.php/1/theme_lambda/logo/1602057627/ubd_logo.png",
              // ),
-            title: Text(data[index].nim, style: TextStyle(color: Colors.white)),
-            subtitle: Text(data[index].nama, style: TextStyle(color: Colors.white)),
+            title: Text(data[index].nig, style: TextStyle(color: Colors.white)),
+            subtitle: Text(data[index].nama_guru, style: TextStyle(color: Colors.white)),
           ),
           ButtonTheme.bar(
             child: ButtonBar(
@@ -139,16 +140,17 @@ return Container(
   );
 }
 
+
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
       ),
-      itemCount: GuruData.length,
+      itemCount: MhsData.length,
       itemBuilder: (context, index) {
-        return viewData(GuruData,index);
+        return viewData(MhsData,index);
       },
     );
   }
-}
