@@ -30,11 +30,11 @@ class Guru {
 
   factory Guru.fromJson(Map<String, dynamic> json) {
     return Guru(
-      nim: json['nig'] as String,
-      nama: json['nama_guru'] as String,
-      kelas: json['jenjang_akademik'] as String,
-      kdmatkul: json['pendidikan_terakhir'] as String,
-      email: json['home_base'] as String,
+      nig: json['nig'] as String,
+      nama_guru: json['nama_guru'] as String,
+      jenjang_akademik: json['jenjang_akademik'] as String,
+      pendidikan_terakhir: json['pendidikan_terakhir'] as String,
+      home_base: json['home_base'] as String,
     );
   }
 }
@@ -44,7 +44,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'Data Mahasiswa';
+    final appTitle = 'Ujian Mid Fiki';
 
     return MaterialApp(
       title: appTitle,
