@@ -26,16 +26,15 @@ class Mhs {
   final String kelas;
   final String kdmatkul;
   final String email;
-
-  Mhs({this.nim, this.nama, this.kelas, this.kdmatkul, this.email});
+  Mhs({this.nig, this.nama_guru, this.jenjang_akademik, this.pendidikan_terakhir, this.home_base});
 
   factory Mhs.fromJson(Map<String, dynamic> json) {
     return Mhs(
-      nim: json['nim'] as String,
-      nama: json['nama'] as String,
-      kelas: json['kelas'] as String,
-      kdmatkul: json['kdmatkul'] as String,
-      email: json['email'] as String,
+      nim: json['nig'] as String,
+      nama: json['nama_guru'] as String,
+      kelas: json['jenjang_akademik'] as String,
+      kdmatkul: json['pendidikan_terakhir'] as String,
+      email: json['home_base'] as String,
     );
   }
 }
