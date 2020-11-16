@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<List<nama_guru>> fetchMhss(http.Client client) async {
+Future<List<namadosen>> fetchMhss(http.Client client) async {
   final response =
       await client.get('https://testfluterku.000webhostapp.com/readDatajson.php');
 
@@ -13,24 +13,24 @@ Future<List<nama_guru>> fetchMhss(http.Client client) async {
   return compute(parseMhss, response.body);
 }
 
-// A function that converts a response body into a List<nama_guru>.
-List<nama_guru> parseMhss(String responseBody) {
+// A function that converts a response body into a List<namadosen>.
+List<namadosen> parseMhss(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
-  return parsed.map<nama_guru>((json) => nama_guru.fromJson(json)).toList();
+  return parsed.map<namadosen>((json) => namadosen.fromJson(json)).toList();
 }
 
-class nama_guru {
+class namadosen {
   final String nig;
   final String nama_guru;
   final String jenjang_akademik;
   final String pendidikan_terakhir;
   final String home_base;
 
-  nama_guru({this.nig, this.nama_guru, this.jenjang_akademik, this.pendidikan_terakhir, this.home_base});
+  namadosen({this.nig, this.nama_guru, this.jenjang_akademik, this.pendidikan_terakhir, this.home_base});
 
-  factory nama_guru.fromJson(Map<String, dynamic> json) {
-    return nama_guru(
+  factory namadosen.fromJson(Map<String, dynamic> json) {
+    return namadosen(
       nig: json['nig'] as String,
       nama_guru: json['nama_guru'] as String,
       jenjang_akademik: json['jenjang_akademik'] as String,
@@ -45,7 +45,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'UJIAN ADE FIKI KURNIAWAN';
+    final appTitle = 'UJIAN ADE Fiki Kurniawan';
 
     return MaterialApp(
       title: appTitle,
@@ -65,7 +65,7 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: FutureBuilder<List<nama_guru>>(
+      body: FutureBuilder<List<namadosen>>(
         future: fetchMhss(http.Client()),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
@@ -80,7 +80,7 @@ class MyHomePage extends StatelessWidget {
 }
 
 class MhssList extends StatelessWidget {
-  final List<nama_guru> MhsData;
+  final List<namadosen> MhsData;
 
   MhssList({Key key, this.MhsData}) : super(key: key);
 
